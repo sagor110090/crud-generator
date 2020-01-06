@@ -47,14 +47,14 @@ class CrudGeneratorServiceProvider extends ServiceProvider
     public function register()
     {
         $this->commands(
-            'Appzcoder\CrudGenerator\Commands\CrudCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudControllerCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudModelCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudMigrationCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudViewCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudLangCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudApiCommand',
-            'Appzcoder\CrudGenerator\Commands\CrudApiControllerCommand'
+            'Sagor110090\CrudGenerator\Commands\CrudCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudControllerCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudModelCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudMigrationCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudViewCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudLangCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudApiCommand',
+            'Sagor110090\CrudGenerator\Commands\CrudApiControllerCommand'
         );
     }
 }

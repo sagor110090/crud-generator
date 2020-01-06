@@ -1,6 +1,6 @@
 <?php
 
-namespace Appzcoder\CrudGenerator\Commands;
+namespace Sagor110090\CrudGenerator\Commands;
 
 use File;
 use Illuminate\Console\Command;
