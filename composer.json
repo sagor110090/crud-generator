@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "sagor110090\\CrudGenerator\\": "src/"
+            "Sagor110090\\CrudGenerator\\": "src/"
         },
         "classmap": [
             "tests"
@@ -37,7 +37,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "sagor110090\\CrudGenerator\\CrudGeneratorServiceProvider"
+                "Sagor110090\\CrudGenerator\\CrudGeneratorServiceProvider"
             ]
         }
     }
