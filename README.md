@@ -19,15 +19,11 @@ composer require sagor110090/crud-generator --dev
 ## Documentation
 Go through to the [detailed documentation](doc#readme)
 
-## Screencast
 
-[![Screencast](http://img.youtube.com/vi/831-PFBsYfw/0.jpg)](Yhttps://www.youtube.com/watch?v=K2G3kMQtY5)
-
-#### If you're still looking for easier one then try this [Admin Panel](https://github.com/appzcoder/laravel-admin)
 
 ## Author
 
-[Sagor](http://sohelamin.com) :email: [Email Me](mailto:mehedihasansagor.cse@gmail.com)
+[Sagor](http://sagor.com) :email: [Email Me](mailto:mehedihasansagor.cse@gmail.com)
 
 ## License
 
