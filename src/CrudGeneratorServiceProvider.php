@@ -1,6 +1,6 @@
 <?php
 
-namespace Appzcoder\CrudGenerator;
+namespace sagor110090\CrudGenerator;
 
 use Illuminate\Support\ServiceProvider;
 
