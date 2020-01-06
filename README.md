@@ -13,7 +13,7 @@ This Generator package provides various generators like CRUD, API, Controller, M
 
 ## Installation
 ```
-composer require appzcoder/crud-generator --dev
+composer require sagor110090/crud-generator --dev
 ```
 
 ## Documentation
@@ -21,13 +21,13 @@ Go through to the [detailed documentation](doc#readme)
 
 ## Screencast
 
-[![Screencast](http://img.youtube.com/vi/831-PFBsYfw/0.jpg)](https://www.youtube.com/watch?v=K2G3kMQtY5Y)
+[![Screencast](http://img.youtube.com/vi/831-PFBsYfw/0.jpg)](Yhttps://www.youtube.com/watch?v=K2G3kMQtY5)
 
 #### If you're still looking for easier one then try this [Admin Panel](https://github.com/appzcoder/laravel-admin)
 
 ## Author
 
-[Sohel Amin](http://sohelamin.com) :email: [Email Me](mailto:sohelamincse@gmail.com)
+[Sagor](http://sohelamin.com) :email: [Email Me](mailto:mehedihasansagor.cse@gmail.com)
 
 ## License
 
