@@ -1,6 +1,6 @@
 ## Installation
 
-To get started, you should add the `appzcoder/crud-generator` Composer dependency to your project:
+To get started, you should add the `sagor110090/crud-generator` Composer dependency to your project:
 ```
 composer require sagor110090/crud-generator --dev
 ```
