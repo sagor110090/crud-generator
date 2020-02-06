@@ -8,7 +8,7 @@ Once the package is installed, you should register the `Appzcoder\CrudGenerator\
 
 After that, publish its assets using the `vendor:publish` Artisan command:
 ```
-php artisan vendor:publish --provider="Appzcoder\CrudGenerator\CrudGeneratorServiceProvider"
+php artisan vendor:publish --provider="sagor110090\CrudGenerator\CrudGeneratorServiceProvider"
 ```
 
 ### Laravel older 5.5
