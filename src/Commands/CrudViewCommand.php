@@ -119,7 +119,7 @@ class CrudViewCommand extends Command
      *
      * @var integer
      */
-    protected $defaultColumnsToShow = 3;
+    protected $defaultColumnsToShow = 10;
 
     /**
      * Variable name with first letter in lowercase
