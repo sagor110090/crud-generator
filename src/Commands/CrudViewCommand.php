@@ -274,7 +274,7 @@ class CrudViewCommand extends Command
         $this->varName = lcfirst($this->argument('name'));
         $this->crudNameCap = ucwords($this->crudName);
         $this->crudNameSingular = Str::singular($this->crudName);
-        $this->modelName = Str::singular($this->argument('name'));
+        $this->modelName = preg_replace('/(?<!\ )[A-Z]/', ' $0', Str::singular($this->argument('name')));
         $this->modelNameCap = ucfirst($this->modelName);
         $this->customData = $this->option('custom-data');
         $this->primaryKey = $this->option('pk');

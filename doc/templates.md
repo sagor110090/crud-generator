@@ -8,7 +8,7 @@ To customize or change the template, you need to follow these steps:
 
 1. Just make sure you've published all assets of this package. If you didn't just run this command.
     ```php
-    php artisan vendor:publish --provider="Appzcoder\CrudGenerator\CrudGeneratorServiceProvider"
+    php artisan vendor:publish --provider="Sagor1100090\CrudGenerator\CrudGeneratorServiceProvider"
     ```
 2. To override the default template with yours, turn on `custom_template` option in the `config/crudgenerator.php` file.
     ```php

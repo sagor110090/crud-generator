@@ -46,6 +46,8 @@ class CrudCommand extends Command
     /** @var string  */
     protected $controller = '';
 
+    protected $seederName = '';
+
     /**
      * Create a new command instance.
      *
@@ -65,6 +67,8 @@ class CrudCommand extends Command
     {
         $name = $this->argument('name');
         $modelName = Str::singular($name);
+        // inisilizzing seeder name
+        $this->seederName  = strtolower(Str::singular($name));
         $migrationName = Str::plural(Str::snake($name));
         $tableName = $migrationName;
 
@@ -143,6 +147,8 @@ class CrudCommand extends Command
 
         if (\App::VERSION() >= '5.3') {
             $routeFile = base_path('routes/web.php');
+             
+            $seedsFile = base_path('database/seeds/PermissionsSeeder.php');
         }
 
         if (file_exists($routeFile) && (strtolower($this->option('route')) === 'yes')) {
@@ -156,6 +162,25 @@ class CrudCommand extends Command
                 $this->info('Unable to add the route to ' . $routeFile);
             }
         }
+
+        // add seed 
+        if (file_exists($seedsFile)) {
+            $permissions = [
+                'show',
+                'create',
+                'edit',
+                'delete',
+            ];
+            for ($i=0; $i < 4; $i++) { 
+                $isAdded = File::append($seedsFile, "\n" . implode("\n", $this->addSeeds($permissions[$i])));
+            }
+
+            if ($isAdded) {
+                $this->info('seed added to ' . $seedsFile);
+            } else {
+                $this->info('Unable add seed to ' . $seedsFile);
+            }
+        }
     }
 
     /**
@@ -166,6 +191,11 @@ class CrudCommand extends Command
     protected function addRoutes()
     {
         return ["Route::resource('" . $this->routeName . "', '" . $this->controller . "');"];
+    }
+    protected function addSeeds($permissions)
+    {
+        $seederName =  $this->seederName.'-'.$permissions;
+        return ["DB::table('permissions')->insert(['name'=> '". $seederName."']);"];
     }
 
     /**
