@@ -7,21 +7,15 @@ use DummyRootNamespaceHttp\Controllers\Controller;
 
 use DummyRootNamespace{{modelNamespace}}{{modelName}};
 use Illuminate\Http\Request;
+use Toastr;
+use Helpers;
 
 class DummyClass extends Controller
 {
 
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
-        $perPage = {{pagination}};
-
-        if (!empty($keyword)) {
-            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
-        } else {
-            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
-        }
-
+        ${{crudName}} = {{modelName}}::all();
         return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
     }
 
@@ -38,8 +32,8 @@ class DummyClass extends Controller
         $requestData = $request->all();
         {{fileSnippet}}
         {{modelName}}::create($requestData);
-
-        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
+        Toastr::success('{{modelName}} added!', 'Done', ["positionClass" => "toast-top-right"]);
+        return redirect('{{routeGroup}}{{viewName}}');
     }
 
 
@@ -66,14 +60,15 @@ class DummyClass extends Controller
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         ${{crudNameSingular}}->update($requestData);
 
-        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
+        Toastr::success('{{modelName}} updated!', 'Done', ["positionClass" => "toast-top-right"]);
+        return redirect('{{routeGroup}}{{viewName}}');
     }
 
 
     public function destroy($id)
     {
         {{modelName}}::destroy($id);
-
-        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} deleted!');
+        Toastr::success('{{modelName}} deleted!', 'Done', ["positionClass" => "toast-top-right"]);
+        return redirect('{{routeGroup}}{{viewName}}');
     }
 }
