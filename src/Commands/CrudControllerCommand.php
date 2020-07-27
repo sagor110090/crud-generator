@@ -137,10 +137,12 @@ EOD;
         if (\$request->hasFile('{{fieldName}}')) {
             \$requestData['{{fieldName}}'] = \$request->file('{{fieldName}}')
                 ->store('uploads', 'public');
+            if(\$request->old{{fieldName}}){
+                Storage::delete(\$request->old{{fieldName}});
+            }
         }
 EOD;
         }
-
 
         $fieldsArray = explode(';', $fields);
         $fileSnippet = '';

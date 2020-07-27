@@ -68,7 +68,9 @@ class CrudCommand extends Command
         $name = $this->argument('name');
         $modelName = Str::singular($name);
         // inisilizzing seeder name
-        $this->seederName  = strtolower(Str::singular($name));
+        $this->seederName = strtolower(Str::singular($name));
+        $this->sidebarName = Str::snake($name, '-');
+
         $migrationName = Str::plural(Str::snake($name));
         $tableName = $migrationName;
 
@@ -147,8 +149,9 @@ class CrudCommand extends Command
 
         if (\App::VERSION() >= '5.3') {
             $routeFile = base_path('routes/web.php');
-             
+
             $seedsFile = base_path('database/seeds/PermissionsSeeder.php');
+            $sidebar = base_path('resources/views/layouts/parts/sidebar.blade.php');
         }
 
         if (file_exists($routeFile) && (strtolower($this->option('route')) === 'yes')) {
@@ -163,7 +166,7 @@ class CrudCommand extends Command
             }
         }
 
-        // add seed 
+        // add seed
         if (file_exists($seedsFile)) {
             $permissions = [
                 'show',
@@ -171,7 +174,7 @@ class CrudCommand extends Command
                 'edit',
                 'delete',
             ];
-            for ($i=0; $i < 4; $i++) { 
+            for ($i = 0; $i < 4; $i++) {
                 $isAdded = File::append($seedsFile, "\n" . implode("\n", $this->addSeeds($permissions[$i])));
             }
 
@@ -179,6 +182,16 @@ class CrudCommand extends Command
                 $this->info('seed added to ' . $seedsFile);
             } else {
                 $this->info('Unable add seed to ' . $seedsFile);
+            }
+        }
+        if (file_exists($sidebar)) {
+
+            $isAdded = File::append($sidebar, "\n" . implode("\n", $this->addSidebar()));
+
+            if ($isAdded) {
+                $this->info('seed added to ' . $sidebar);
+            } else {
+                $this->info('Unable add seed to ' . $sidebar);
             }
         }
     }
@@ -194,8 +207,29 @@ class CrudCommand extends Command
     }
     protected function addSeeds($permissions)
     {
-        $seederName =  $this->seederName.'-'.$permissions;
-        return ["DB::table('permissions')->insert(['name'=> '". $seederName."']);"];
+        $seederName = $this->seederName . '-' . $permissions;
+        return ["DB::table('permissions')->insert(['name'=> '" . $seederName . "']);"];
+    }
+    protected function addSidebar()
+    {
+        $sidebarName = Str::replaceArray('-', [' '], $this->sidebarName);
+
+        return ['                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+        href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-television-guide"></i><span
+            class="hide-menu">' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . '</span></a>
+    <ul aria-expanded="false" class="collapse  first-level">
+        @if (Helpers::isAdmin())
+        <li class="sidebar-item"><a href="{{ url("' . $this->routeName . '/create") }}" class="sidebar-link"><i
+                    class="mdi mdi-note-outline"></i><span class="hide-menu">New ' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . '
+                </span></a></li>
+        @endif
+        <li class="sidebar-item"><a href="{{ url("' . $this->routeName . '") }}" class="sidebar-link"><i
+                    class="mdi mdi-note-plus"></i><span class="hide-menu">' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . ' List
+                </span></a></li>
+    </ul>
+</li>', ];
+
+        // return ['@if(Helper::authCheck("' . $this->seederName . '-show") || Helper::authCheck("' . $this->seederName . '-create")) <li class="dropdown {{ Request::is("' . $this->routeName . '*") ? "active":""}}"> <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . ' </span></a><ul class="dropdown-menu"> @if(Helper::authCheck("' . $this->seederName . '-create"))<li class="{{ Request::is("' . $this->routeName . '/create*") ? "active":""}}"><a class="nav-link" href="{{ url("' . $this->routeName . '/create") }}">New ' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . '</a></li> @endif  @if(Helper::authCheck("' . $this->seederName . '-show")) <li class="{{ Request::is("' . $this->routeName . '") ? "active":""}}"><a class="nav-link" href="{{ url("' . $this->routeName . '") }}">' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . ' List</a></li> @endif </ul></li> @endif'];
     }
 
     /**
@@ -212,11 +246,12 @@ class CrudCommand extends Command
 
         $fieldsString = '';
         foreach ($fields->fields as $field) {
-            if ($field->type === 'select' || $field->type === 'enum') {
-                $fieldsString .= $field->name . '#' . $field->type . '#options=' . json_encode($field->options) . ';';
-            } else {
-                $fieldsString .= $field->name . '#' . $field->type . ';';
-            }
+            // if ($field->type === 'select' || $field->type === 'enum') {
+            //     $fieldsString .= $field->name . '#' . $field->type . '#options=' . json_encode($field->options) . ';';
+            // } else {
+            //     $fieldsString .= $field->name . '#' . $field->type . ';';
+            // }
+            $fieldsString .= $field->name . '#' . $field->type . ';';
         }
 
         $fieldsString = rtrim($fieldsString, ';');
@@ -236,7 +271,7 @@ class CrudCommand extends Command
         $json = File::get($file);
         $fields = json_decode($json);
 
-        if (! property_exists($fields, 'foreign_keys')) {
+        if (!property_exists($fields, 'foreign_keys')) {
             return '';
         }
 
