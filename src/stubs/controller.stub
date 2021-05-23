@@ -4,24 +4,33 @@ namespace DummyNamespace;
 
 use DummyRootNamespaceHttp\Requests;
 use DummyRootNamespaceHttp\Controllers\Controller;
-
 use DummyRootNamespace{{modelNamespace}}{{modelName}};
 use Illuminate\Http\Request;
-use Toastr;
-use Helpers;
+use Session;
+use Helper;
+use Storage;
 
 class DummyClass extends Controller
 {
 
-    public function index(Request $request)
+     public function index(Request $request)
     {
-        ${{crudName}} = {{modelName}}::all();
+        $keyword = $request->get('search');
+        $perPage = {{pagination}};
+
+        if (!empty($keyword)) {
+            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
+        } else {
+            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
+        }
+         
         return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
     }
 
 
     public function create()
     {
+       
         return view('{{viewPath}}{{viewName}}.create');
     }
 
@@ -32,7 +41,8 @@ class DummyClass extends Controller
         $requestData = $request->all();
         {{fileSnippet}}
         {{modelName}}::create($requestData);
-        Toastr::success('{{modelName}} added!', 'Done', ["positionClass" => "toast-top-right"]);
+        Session::flash('success','Successfully Saved!');
+        
         return redirect('{{routeGroup}}{{viewName}}');
     }
 
@@ -40,14 +50,14 @@ class DummyClass extends Controller
     public function show($id)
     {
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
-
+        
         return view('{{viewPath}}{{viewName}}.show', compact('{{crudNameSingular}}'));
     }
 
     public function edit($id)
     {
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
-
+        
         return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
     }
 
@@ -59,8 +69,8 @@ class DummyClass extends Controller
         {{fileSnippet}}
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         ${{crudNameSingular}}->update($requestData);
-
-        Toastr::success('{{modelName}} updated!', 'Done', ["positionClass" => "toast-top-right"]);
+        Session::flash('success','Successfully Updated!');
+        
         return redirect('{{routeGroup}}{{viewName}}');
     }
 
@@ -68,7 +78,7 @@ class DummyClass extends Controller
     public function destroy($id)
     {
         {{modelName}}::destroy($id);
-        Toastr::success('{{modelName}} deleted!', 'Done', ["positionClass" => "toast-top-right"]);
+        Session::flash('success','Successfully Deleted!');
         return redirect('{{routeGroup}}{{viewName}}');
     }
 }

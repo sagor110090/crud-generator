@@ -214,20 +214,26 @@ class CrudCommand extends Command
     {
         $sidebarName = Str::replaceArray('-', [' '], $this->sidebarName);
 
-        return ['                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-        href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-television-guide"></i><span
-            class="hide-menu">' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . '</span></a>
-    <ul aria-expanded="false" class="collapse  first-level">
-        @if (Helpers::isAdmin())
-        <li class="sidebar-item"><a href="{{ url("' . $this->routeName . '/create") }}" class="sidebar-link"><i
-                    class="mdi mdi-note-outline"></i><span class="hide-menu">New ' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . '
-                </span></a></li>
-        @endif
-        <li class="sidebar-item"><a href="{{ url("' . $this->routeName . '") }}" class="sidebar-link"><i
-                    class="mdi mdi-note-plus"></i><span class="hide-menu">' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . ' List
-                </span></a></li>
-    </ul>
-</li>', ];
+        return ['<li class="dropdown {{ Request::is("' . $this->routeName . '*") ? "active":""}}"> <a href="{{ url("' . $this->routeName . '") }}"
+        class="nav-link" ><i data-feather="copy"></i><span>' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . ' </span></a>
+
+</li>'];
+
+
+//         return ['                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+//         href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-television-guide"></i><span
+//             class="hide-menu">' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . '</span></a>
+//     <ul aria-expanded="false" class="collapse  first-level">
+//         @if (Helpers::isAdmin())
+//         <li class="sidebar-item"><a href="{{ url("' . $this->routeName . '/create") }}" class="sidebar-link"><i
+//                     class="mdi mdi-note-outline"></i><span class="hide-menu">New ' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . '
+//                 </span></a></li>
+//         @endif
+//         <li class="sidebar-item"><a href="{{ url("' . $this->routeName . '") }}" class="sidebar-link"><i
+//                     class="mdi mdi-note-plus"></i><span class="hide-menu">' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . ' List
+//                 </span></a></li>
+//     </ul>
+// </li>', ];
 
         // return ['@if(Helper::authCheck("' . $this->seederName . '-show") || Helper::authCheck("' . $this->seederName . '-create")) <li class="dropdown {{ Request::is("' . $this->routeName . '*") ? "active":""}}"> <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="copy"></i><span>' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . ' </span></a><ul class="dropdown-menu"> @if(Helper::authCheck("' . $this->seederName . '-create"))<li class="{{ Request::is("' . $this->routeName . '/create*") ? "active":""}}"><a class="nav-link" href="{{ url("' . $this->routeName . '/create") }}">New ' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . '</a></li> @endif  @if(Helper::authCheck("' . $this->seederName . '-show")) <li class="{{ Request::is("' . $this->routeName . '") ? "active":""}}"><a class="nav-link" href="{{ url("' . $this->routeName . '") }}">' . ucwords(Str::replaceArray('-', [''], $sidebarName)) . ' List</a></li> @endif </ul></li> @endif'];
     }
