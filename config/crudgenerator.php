@@ -2,7 +2,7 @@
 
 return [
 
-    'custom_template' => false,
+    'custom_template' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -37,6 +37,7 @@ return [
     | Those values are available :
     |
     | formFields
+    | formFieldsString
     | formFieldsHtml
     | varName
     | crudName
@@ -55,7 +56,7 @@ return [
     |
      */
     'dynamic_view_template' => [
-        'index' => ['formHeadingHtml', 'formBodyHtml', 'crudName', 'crudNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey'],
+        'index' => ['formHeadingHtml', 'formBodyHtml', 'crudName', 'crudNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey','formFieldsString'],
         'form' => ['formFieldsHtml'],
         'create' => ['crudName', 'crudNameCap', 'modelName', 'modelNameCap', 'viewName', 'routeGroup', 'viewTemplateDir'],
         'edit' => ['crudName', 'crudNameSingular', 'crudNameCap', 'modelNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey', 'viewTemplateDir'],

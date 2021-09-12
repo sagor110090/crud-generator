@@ -82,6 +82,7 @@ class CrudViewCommand extends Command
      */
     protected $vars = [
         'formFields',
+        'formFieldsString',
         'formFieldsHtml',
         'varName',
         'crudName',
@@ -106,6 +107,7 @@ class CrudViewCommand extends Command
      * @var array
      */
     protected $formFields = [];
+    protected $formFieldsString = '';
 
     /**
      * Html of Form's fields.
@@ -306,7 +308,6 @@ class CrudViewCommand extends Command
         $this->formFields = [];
 
         $validations = $this->option('validations');
-
         if ($fields) {
             $x = 0;
             foreach ($fieldsArray as $item) {
@@ -334,6 +335,13 @@ class CrudViewCommand extends Command
             $this->formFieldsHtml .= $this->createField($item);
         }
 
+
+        $this->formFieldsString .= "[";
+        foreach ($this->formFields as $item) {
+            $this->formFieldsString .= "'".$item['name']."',";
+        }
+        $this->formFieldsString .= ']';
+
         $i = 0;
         foreach ($this->formFields as $key => $value) {
             if ($i == $this->defaultColumnsToShow) {
@@ -346,7 +354,6 @@ class CrudViewCommand extends Command
                 $label = '{{ trans(\'' . $this->crudName . '.' . $field . '\') }}';
             }
             $this->formHeadingHtml .= '<th>' . $label . '</th>';
-            // dd($field == 'image');
             if ($field == 'image') {
                 $this->formBodyHtml .= '<td><img class="img-thumbnail" src="{{ Storage::url($item->' . $field . ') }}" alt=""></td>';
             } else {
@@ -374,7 +381,7 @@ class CrudViewCommand extends Command
     private function defaultTemplating()
     {
         return [
-            'index' => ['formHeadingHtml', 'formBodyHtml', 'crudName', 'crudNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey'],
+            'index' => ['formHeadingHtml', 'formBodyHtml', 'crudName', 'crudNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey','formFieldsString'],
             'form' => ['formFieldsHtml'],
             'create' => ['crudName', 'crudNameCap', 'modelName', 'modelNameCap', 'viewName', 'routeGroup', 'viewTemplateDir'],
             'edit' => ['crudName', 'crudNameSingular', 'crudNameCap', 'modelNameCap', 'modelName', 'viewName', 'routeGroup', 'primaryKey', 'viewTemplateDir'],
