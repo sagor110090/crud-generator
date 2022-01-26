@@ -214,10 +214,13 @@ class CrudCommand extends Command
     {
         $sidebarName = Str::replaceArray('-', [' '], $this->sidebarName);
 
-        return ['<li class="dropdown {{ Request::is("' . $this->routeName . '*") ? "active":""}}"> <a href="{{ url("' . $this->routeName . '") }}"
-        class="nav-link" ><i data-feather="copy"></i><span>' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . ' </span></a>
 
-</li>'];
+ 
+
+        return ['<li class="nav-item"> <a href="{{ url("' . $this->routeName . '") }}"
+        class="nav-link has-arrow {{ Request::is("' . $this->routeName . '*") ? "active":""}}" ><i class="nav-icon icon-xs me-2 fa fa-list"></i> ' . ucwords(Str::replaceArray('-', [' '], $sidebarName)) . '</a>
+
+        </li>'];
 
 
 //         return ['                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"

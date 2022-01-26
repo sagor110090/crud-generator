@@ -1,13 +1,8 @@
-@extends('layouts.app',['pageTitle' => __('%%modelName%% Edit')])
+@extends('layouts.app')
+@section('title', __('%%modelName%% Edit'))
 @section('content')
 
-@component('layouts.parts.breadcrumb')
-    @slot('title')
-        {{ __('%%modelName%%') }}
-    @endslot
-@endcomponent
 
-             
 <div class="card">
     <div class="card-header">{{ __('Edit %%modelName%%') }}</div>
     <div class="card-body">
@@ -26,6 +21,39 @@
 
     </div>
 </div>
-       
+
+<div class="col-lg-12 col-md-12 col-12">
+    <div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="mb-2 mb-lg-0">
+                <h3 class="mb-0 fw-bold text-white">{{ __('%%modelName%% Edit') }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-6">
+    <div class="card rounded-3">
+        <div class="card-body">
+            <div class="justify-content-between align-items-center mb-3">
+                 <a href="#" onclick="history.back()" title="Back"><button
+            class="btn btn-warning btn-sm"><i class="feather-16" data-feather="arrow-left"></i> {{ __('Back') }}
+            </button></a>
+            <br />
+            <br />
+
+
+             <form method="POST" action="{{ url('/%%routeGroup%%%%viewName%%/' . $%%crudNameSingular%%->%%primaryKey%%) }}" accept-charset="UTF-8" class="form-horizontal needs-validation"  enctype="multipart/form-data">
+                {{ method_field('PATCH') }}
+                {{ csrf_field() }}
+
+                @include ('%%viewTemplateDir%%.form', ['formMode' => 'edit'])
+
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection

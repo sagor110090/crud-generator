@@ -355,12 +355,12 @@ class CrudViewCommand extends Command
             }
             $this->formHeadingHtml .= '<th>' . $label . '</th>';
             if ($field == 'image') {
-                $this->formBodyHtml .= '<td><img class="img-thumbnail" src="{{ Storage::url($item->' . $field . ') }}" alt=""></td>';
+                $this->formBodyHtml .= '<td><img class="img-thumbnail" style="height:200px" src="{{ Storage::url($item->' . $field . ') }}" alt=""></td>';
             } else {
                 $this->formBodyHtml .= '<td>{{ $item->' . $field . ' }}</td>';
             }
             if ($field == 'image') {
-                $this->formBodyHtmlForShowView .= '<tr><th> ' . $label . ' </th><td> <img class="img-full" src="{{ Storage::url($%%crudNameSingular%%->' . $field . ') }}" alt=""> </td></tr>';
+                $this->formBodyHtmlForShowView .= '<tr><th> ' . $label . ' </th><td> <img class="img-full" style="max-height:400px" src="{{ Storage::url($%%crudNameSingular%%->' . $field . ') }}" alt=""> </td></tr>';
             } else {
                 $this->formBodyHtmlForShowView .= '<tr><th> ' . $label . ' </th><td> {{ $%%crudNameSingular%%->' . $field . ' }} </td></tr>';
             }
